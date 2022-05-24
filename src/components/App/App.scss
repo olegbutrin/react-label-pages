@@ -1,0 +1,46 @@
+@import "../../index.scss";
+
+.App {
+  @extend %flexrow;
+  height: 100vh;
+  width: 100vw;
+  align-items: center;
+  justify-content: center;
+}
+
+.Page {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  grid-template-rows: (auto, auto);
+  grid-template-areas: 
+    "LIST  INFO"
+    "FOOTER  FOOTER";
+  gap: $size;
+  height: 80vmin;
+  width: 80vmin;
+}
+
+.List {
+  @extend %flexcol;
+  align-items: stretch;
+  justify-content: flex-start;
+  height: 100%;
+  overflow: hidden;
+  grid-area: LIST;
+}
+
+.Info {
+  @extend %flexcol;
+  align-items: flex-start;
+  justify-content: space-between;
+  grid-area: INFO;
+}
+
+.Footer {
+  @extend %flexrow;
+  align-items: center;
+  justify-content: flex-end;
+  width: 100%;
+  height: max-content;
+  grid-area: FOOTER;
+}

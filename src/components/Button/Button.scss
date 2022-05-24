@@ -1,0 +1,32 @@
+@import "../../index.scss";
+
+.Button {
+  display: inline-block;
+  font-size: $size;
+  font-weight: 500;
+  text-transform: uppercase;
+  padding: calc($size / 2) $size;
+  margin: 0 $size;
+  border-radius: calc($size / 2);
+  box-sizing: border-box;
+  cursor: pointer;
+
+  &:hover {
+    filter: drop-shadow(0 0 calc($size / 2) $darkest );
+  }
+
+  &.normal {
+    background-color: $dark;
+    color: $font;
+  }
+
+  &.warning {
+    background-color: $warning;
+    color: black;
+  }
+
+  &.error {
+    background-color: $error;
+    color: white;
+  }
+}
