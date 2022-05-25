@@ -1,4 +1,19 @@
-import {TRawData, TItem} from "../types";
+import { TRawData, TItem } from "../types";
+
+export const removeByID: (root: TItem, id: number) => TItem = (root, id) => {
+  const items = root.items
+    ? [
+        ...root.items
+          .filter((item) => {
+            return item.id !== id;
+          })
+          .map((item) => {
+            return removeByID(item, id);
+          }),
+      ]
+    : root.items;
+  return { ...root, items: items } as TItem;
+};
 
 export const itemByID = (root: TItem, id: number) => {
   if (root.id === id) {
@@ -6,7 +21,7 @@ export const itemByID = (root: TItem, id: number) => {
   }
   if (root.items) {
     let result: TItem | null = null;
-    root.items.every((item) =>{
+    root.items.every((item) => {
       const sub = itemByID(item, id);
       if (sub) {
         result = sub;
@@ -18,7 +33,7 @@ export const itemByID = (root: TItem, id: number) => {
     return result;
   }
   return null;
-} 
+};
 
 export const rawToData: (raw: TRawData) => TItem = (raw) => {
   const src = raw.entityLabelPages[0];
@@ -40,10 +55,10 @@ export const rawToData: (raw: TRawData) => TItem = (raw) => {
           id: id,
           label: label,
           parentID: pid,
-        }
+        };
         parent.items.push(child);
       }
     }
-  })
+  });
   return root;
-}
+};

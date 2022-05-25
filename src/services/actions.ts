@@ -52,6 +52,12 @@ export const getData = () => {
   };
 };
 
+export const updateData = (data: TItem) => {
+  return (dispatch: Dispatch) => {
+    dispatch({ type: constants.SET_DATA, payload: data });
+  }
+}
+
 export const setSelected = (id:number) => {
   return (dispatch: Dispatch) => {
     dispatch({ type: constants.SET_SELECTED, payload: id });
