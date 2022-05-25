@@ -23,7 +23,11 @@ export const appReducer: Reducer<TAppStore, TAppActions> = (
     case constants.DATA_SUCCESS:
       return { ...state, request: false, error: "", rawData: action.payload };
     case constants.SET_DATA:
-      return { ...state, data: action.payload };
+      return {
+        ...state,
+        data: action.payload,
+        selectedID: initialState.selectedID,
+      };
     case constants.SET_SELECTED:
       return {
         ...state,

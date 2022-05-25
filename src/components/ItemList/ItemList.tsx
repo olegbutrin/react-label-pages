@@ -1,5 +1,11 @@
 import { SyntheticEvent, useCallback, useState } from "react";
 import { TItem } from "../../types";
+import {
+  onDragStart,
+  onDragOver,
+  onDragEnter,
+  onDragLeave,
+} from "../../services/utils";
 
 import "./ItemList.scss";
 
@@ -8,10 +14,18 @@ export interface IItemListComponent {
   level: number;
   selectedID: number | null;
   onClick: (e: SyntheticEvent) => void;
+  onDrop: (e: SyntheticEvent) => void;
 }
 
-const ListItem = ({ data, level, selectedID, onClick }: IItemListComponent) => {
+const ListItem = ({
+  data,
+  level,
+  selectedID,
+  onClick,
+  onDrop,
+}: IItemListComponent) => {
   const [isVisible, setVisible] = useState<boolean>(true);
+
   const onSwapVisible = useCallback(
     (e: SyntheticEvent) => {
       e.stopPropagation();
@@ -30,6 +44,12 @@ const ListItem = ({ data, level, selectedID, onClick }: IItemListComponent) => {
         }
         data-id={data.id}
         onClick={onClick}
+        draggable={true}
+        onDragStart={onDragStart}
+        onDragOver={onDragOver}
+        onDragEnter={onDragEnter}
+        onDragLeave={onDragLeave}
+        onDrop={onDrop}
       >
         <div className={"Text"}>{data.label}</div>
         {data.items && (
@@ -52,6 +72,7 @@ const ListItem = ({ data, level, selectedID, onClick }: IItemListComponent) => {
                 level={level + 1}
                 selectedID={selectedID}
                 onClick={onClick}
+                onDrop={onDrop}
               />
             );
           })}
@@ -61,7 +82,13 @@ const ListItem = ({ data, level, selectedID, onClick }: IItemListComponent) => {
   );
 };
 
-const ItemList = ({ data, level, selectedID, onClick }: IItemListComponent) => {
+const ItemList = ({
+  data,
+  level,
+  selectedID,
+  onClick,
+  onDrop,
+}: IItemListComponent) => {
   return (
     <div className="Container">
       <ul className="ItemList">
@@ -74,6 +101,7 @@ const ItemList = ({ data, level, selectedID, onClick }: IItemListComponent) => {
                 level={level + 1}
                 selectedID={selectedID}
                 onClick={onClick}
+                onDrop={onDrop}
               />
             );
           })}

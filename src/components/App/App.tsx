@@ -1,7 +1,7 @@
-import { SyntheticEvent, useCallback, useState } from "react";
+import { DragEvent, SyntheticEvent, useCallback, useState } from "react";
 import { getData, setSelected, updateData } from "../../services/actions";
 import { useDispatch, useSelector } from "../../services/hooks";
-import { rawToData, removeByID } from "../../services/utils";
+import { moveItemByIDS, rawToData, removeByID } from "../../services/utils";
 import Button, { IButtonComponent } from "../Button/Button";
 import ItemInfo from "../ItemInfo/ItemInfo";
 import ItemList from "../ItemList/ItemList";
@@ -48,7 +48,6 @@ const App = () => {
       const nextRaw = removeByID(rawData, selectedID);
       const nextData = rawToData(nextRaw);
       dispatch(updateData(nextData));
-      dispatch(setSelected(null));
     }
   }, [dispatch, rawData, selectedID]);
 
@@ -65,6 +64,26 @@ const App = () => {
     [dispatch]
   );
 
+  // drop item
+  const onDrop = useCallback(
+    (e: SyntheticEvent) => {
+      e.preventDefault();
+      const current = e.currentTarget;
+      current.classList.remove("dragover");
+      const destID = current.getAttribute("data-id");
+      const drop = e as DragEvent;
+      if (drop.dataTransfer) {
+        const srcID = drop.dataTransfer.getData("text/plain");
+        if (rawData !== null) {
+          const nextRaw = moveItemByIDS(rawData, Number(srcID), Number(destID));
+          const nextData = rawToData(nextRaw);
+          dispatch(updateData(nextData));
+        }
+      }
+    },
+    [dispatch, rawData]
+  );
+
   return (
     <div className="App">
       <div className="Page">
@@ -77,6 +96,7 @@ const App = () => {
               level={0}
               selectedID={selectedID}
               onClick={setSelectedItem}
+              onDrop={onDrop}
             />
           )}
         </div>

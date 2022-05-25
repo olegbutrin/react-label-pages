@@ -69,6 +69,7 @@
 .Text {
   color: $font;
   font-weight: 500;
+  pointer-events: none;
 }
 
 .Control {
@@ -88,4 +89,8 @@
   &.off {
     background-image: url("data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHZpZXdCb3g9IjAgMCA1MTIgNTEyIj48Y2lyY2xlIGN4PSIyNTYiIGN5PSIyNTYiIHI9IjI1NiIgZmlsbD0iIzI1YjZkMiIvPjxnIGZpbGw9IiNmZmYiPjxwYXRoIGQ9Ik0yNDAgMTIwaDMydjI3MmgtMzJ6Ii8+PHBhdGggZD0iTTEyMCAyNDBoMjcydjMySDEyMHoiLz48L2c+PC9zdmc+");
   }
+}
+
+.dragover {
+  opacity: 0.7;
 }
