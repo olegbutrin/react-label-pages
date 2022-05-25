@@ -2,4 +2,6 @@ export const DATA_REQUEST: "DATA_REQUEST" = "DATA_REQUEST";
 export const DATA_SUCCESS: "DATA_SUCCESS" = "DATA_SUCCESS";
 export const DATA_ERROR: "DATA_ERROR" = "DATA_ERROR";
 
+export const SET_DATA: "SET_DATA" = "SET_DATA";
+export const SET_SELECTED: "SET_SELECTED" = "SET_SELECTED";
 export const REMOVE_ITEM: "REMOVE_ITEM" = "REMOVE_ITEM";

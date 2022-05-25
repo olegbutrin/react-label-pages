@@ -11,11 +11,10 @@
 .Page {
   display: grid;
   grid-template-columns: repeat(2, 1fr);
-  grid-template-rows: (auto, auto);
-  grid-template-areas: 
+  grid-template-areas:
     "LIST  INFO"
     "FOOTER  FOOTER";
-  gap: $size;
+  gap: calc($size * 2);
   height: 80vmin;
   width: 80vmin;
 }
@@ -24,8 +23,10 @@
   @extend %flexcol;
   align-items: stretch;
   justify-content: flex-start;
-  height: 100%;
-  overflow: hidden;
+  padding: calc($size * 2);
+  border: 1px solid $darkest;
+  box-sizing: border-box;
+  height: 70vmin;
   grid-area: LIST;
 }
 
@@ -33,6 +34,10 @@
   @extend %flexcol;
   align-items: flex-start;
   justify-content: space-between;
+  padding: calc($size * 2);
+  border: 1px solid $darkest;
+  box-sizing: border-box;
+  height: 70vmin;
   grid-area: INFO;
 }
 

@@ -1,0 +1,30 @@
+@import "../../index.scss";
+
+.ItemInfo {
+  @extend %flexcol;
+  align-items: stretch;
+  justify-content: space-between;
+  width: 100%;
+  height: 100%;
+}
+
+.InfoBox {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  grid-template-rows: repeat(3, 1fr);
+  gap: $size;
+  font-size: calc($size * 2);
+  height: max-content;
+}
+
+.Console {
+  padding: calc($size * 2);
+  background-color: $darkest;
+  color: $font;
+  overflow: auto;
+  max-height: 50vmin;
+}
+
+.Dummy {
+  display: block;
+}

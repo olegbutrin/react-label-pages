@@ -1,0 +1,35 @@
+@import "../../index.scss";
+
+.SpinnerBox {
+  @extend %flexcol;
+  align-items: center;
+  justify-content: center;
+  height: 80%;
+  width: 80%;
+  overflow: hidden;
+}
+
+.Spinner {
+  width: 64px;
+  height: 64px;
+  background-image: url("data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIGhlaWdodD0iMjQiIHdpZHRoPSIyNCI+PHBhdGggZD0iTTAgMGgyNHYyNEgwVjB6IiBmaWxsPSJub25lIi8+PHBhdGggZD0iTTE3LjY1IDYuMzVBNy45NTggNy45NTggMCAwMDEyIDRjLTQuNDIgMC03Ljk5IDMuNTgtNy45OSA4czMuNTcgOCA3Ljk5IDhjMy43MyAwIDYuODQtMi41NSA3LjczLTZoLTIuMDhBNS45OSA1Ljk5IDAgMDExMiAxOGMtMy4zMSAwLTYtMi42OS02LTZzMi42OS02IDYtNmMxLjY2IDAgMy4xNC42OSA0LjIyIDEuNzhMMTMgMTFoN1Y0bC0yLjM1IDIuMzV6Ii8+PC9zdmc+");
+  background-repeat: no-repeat;
+  background-position: center;
+  background-size: cover;
+  pointer-events: none;
+}
+
+@media (prefers-reduced-motion: no-preference) {
+  .Spinner {
+    animation: spinner-spin infinite 2s linear;
+  }
+
+  @keyframes spinner-spin {
+    from {
+      transform: rotate(0deg);
+    }
+    to {
+      transform: rotate(360deg);
+    }
+  }
+}
