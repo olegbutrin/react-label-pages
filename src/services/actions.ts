@@ -31,7 +31,12 @@ export interface ISetSelected {
   readonly payload: number;
 }
 
-export type TAppActions = IDataRequest | IDataSuccess | IDataError | ISetData | ISetSelected;
+export type TAppActions =
+  | IDataRequest
+  | IDataSuccess
+  | IDataError
+  | ISetData
+  | ISetSelected;
 
 export const getData = () => {
   return (dispatch: Dispatch) => {
@@ -55,11 +60,11 @@ export const getData = () => {
 export const updateData = (data: TItem) => {
   return (dispatch: Dispatch) => {
     dispatch({ type: constants.SET_DATA, payload: data });
-  }
-}
+  };
+};
 
-export const setSelected = (id:number) => {
+export const setSelected = (id: number | null) => {
   return (dispatch: Dispatch) => {
     dispatch({ type: constants.SET_SELECTED, payload: id });
-  }
-}
+  };
+};

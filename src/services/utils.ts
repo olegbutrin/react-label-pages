@@ -1,6 +1,24 @@
 import { TRawData, TItem } from "../types";
 
-export const removeByID: (root: TItem, id: number) => TItem = (root, id) => {
+export const removeByID: (raw: TRawData, id: number) => TRawData = (
+  raw,
+  id
+) => {
+  const alter = JSON.parse(JSON.stringify(raw));
+  const index = alter.entityLabelPages[0].entityLongIds.indexOf(id);
+  if (index > -1) {
+    alter.entityLabelPages[0].entityLongIds.splice(index, 1);
+    alter.entityLabelPages[0].parentEntityLongIds.splice(index, 1);
+    alter.entityLabelPages[0].labels.splice(index, 1);
+  }
+  return alter;
+};
+
+// deprecated, but keep in mind
+export const removeByID_old: (root: TItem, id: number) => TItem = (
+  root,
+  id
+) => {
   const items = root.items
     ? [
         ...root.items
@@ -8,7 +26,7 @@ export const removeByID: (root: TItem, id: number) => TItem = (root, id) => {
             return item.id !== id;
           })
           .map((item) => {
-            return removeByID(item, id);
+            return removeByID_old(item, id);
           }),
       ]
     : root.items;

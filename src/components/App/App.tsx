@@ -1,7 +1,7 @@
 import { SyntheticEvent, useCallback, useState } from "react";
 import { getData, setSelected, updateData } from "../../services/actions";
 import { useDispatch, useSelector } from "../../services/hooks";
-import { removeByID } from "../../services/utils";
+import { rawToData, removeByID } from "../../services/utils";
 import Button, { IButtonComponent } from "../Button/Button";
 import ItemInfo from "../ItemInfo/ItemInfo";
 import ItemList from "../ItemList/ItemList";
@@ -25,7 +25,7 @@ const removeBtnProps: IButtonComponent = {
 
 const App = () => {
   const dispatch = useDispatch();
-  const { data, request, error, selectedID } = useSelector(
+  const { rawData, data, request, error, selectedID } = useSelector(
     (store) => store.app
   );
 
@@ -44,11 +44,13 @@ const App = () => {
   }, [dispatch]);
 
   removeBtnProps.onClick = useCallback(() => {
-    if (data !== null && selectedID !== null) {
-      const next = removeByID(data, selectedID);
-      dispatch(updateData(next));
+    if (rawData !== null && selectedID !== null) {
+      const nextRaw = removeByID(rawData, selectedID);
+      const nextData = rawToData(nextRaw);
+      dispatch(updateData(nextData));
+      dispatch(setSelected(null));
     }
-  }, [dispatch, data, selectedID]);
+  }, [dispatch, rawData, selectedID]);
 
   // select item
   const setSelectedItem = useCallback(
