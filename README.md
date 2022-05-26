@@ -1,46 +1,63 @@
-# Getting Started with Create React App
+# React Label Pages
 
-This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
+Демо приложения для управления списком страниц
 
-## Available Scripts
+Написано по [тестовому заданию](todo.md) на вакансию frontend-разработчика с небольшими отклонениями:
 
-In the project directory, you can run:
++ не используется MobX (не использовал ранее, а время выполнения ограничено), заменен на Redux/Thunk,
++ не реализован виртуальный скролл (см. ниже).
 
-### `yarn start`
+Тестовая версия приложения на GitHub Pages: [react-label-pages](https://olegbutrin.github.io/react-label-pages)
 
-Runs the app in the development mode.\
-Open [http://localhost:3000](http://localhost:3000) to view it in the browser.
+## Работа в приложении
 
-The page will reload if you make edits.\
-You will also see any lint errors in the console.
+### Получение и отображение данных
 
-### `yarn test`
+При запуске приложения выполняется запрос к gist по заранее заданному адресу в GitHub. Полученные данные сохраняются в Redux.\
+При необходимости обновить данные из gist используется кнопка `Refresh`;
 
-Launches the test runner in the interactive watch mode.\
-See the section about [running tests](https://facebook.github.io/create-react-app/docs/running-tests) for more information.
+После получения исходных данных в виде набора из нескольких массивов, из них формируется рабочий **древовидный** объект. Этот объект визуализируется в левой панели в виде набора вложенных ненумерованных списков `<ul/>`. Такой подход позволяет легко организовать скрытие и отображение списка потомков (кнопка `+` или `-` в зависимости от состояния в правой части каждого элемента, имеющего потомков), но при этом делает излишне сложным расчет виртуального скролла, от которого пришлось отказаться.
 
-### `yarn build`
+### Дополнительные инструменты
 
-Builds the app for production to the `build` folder.\
-It correctly bundles React in production mode and optimizes the build for the best performance.
+По клику на любой элемент из списка в левой панели приложения, в правой панели отображается информация о выбранном элементе. Сам выбранный элемент в левой панели выделяется визуально.
 
-The build is minified and the filenames include the hashes.\
-Your app is ready to be deployed!
+Выбранный элемент может быть удален при помощи кнопки `Remove`. Если элемент соджержит потомков, то все потомки также будут удалены из дерева элементов.
 
-See the section about [deployment](https://facebook.github.io/create-react-app/docs/deployment) for more information.
+При помощи кнопки `Show Console` / `Hide Console` можно управлять видимостью псевдоконсоли, в которой отображается текущее состояние дерева элементов.
 
-### `yarn eject`
+### Поиск элементов
 
-**Note: this is a one-way operation. Once you `eject`, you can’t go back!**
+Ниже левой панели находится форма поиска элементов. Поиск ведется по названию (label), регистр игнорируется. Для поиска введенной строки нужно нажать кнопку `Go`.
 
-If you aren’t satisfied with the build tool and configuration choices, you can `eject` at any time. This command will remove the single build dependency from your project.
+Алгоритм поиска (реализован на чистом js без использования react) следующий.\
+В первую очередь разворачиваются все скрытые списки потомков, поскольку в скрытых списках поиск невозможен. Затем ищутся все элементы, содержащие искомую строку. Если такие элементы найдены, то список элементов скроллится либо к ближайшему элементу, находящемуся ниже нижней границы контейнера, либо к первому найденному элементу. Последовательное нажатие кнопки `Go` позволяет циклично переходить к найденным элементам, если их несколько.
 
-Instead, it will copy all the configuration files and the transitive dependencies (webpack, Babel, ESLint, etc) right into your project so you have full control over them. All of the commands except `eject` will still work, but they will point to the copied scripts so you can tweak them. At this point you’re on your own.
+## Инструментарий
 
-You don’t have to ever use `eject`. The curated feature set is suitable for small and middle deployments, and you shouldn’t feel obligated to use this feature. However we understand that this tool wouldn’t be useful if you couldn’t customize it when you are ready for it.
++ React JS 18
++ Typescript
++ Redux
++ Thunk
++ Axios
++ SASS
 
-## Learn More
+Проект был создан при использовании [Create React App](https://github.com/facebook/create-react-app).
 
-You can learn more in the [Create React App documentation](https://facebook.github.io/create-react-app/docs/getting-started).
+## Установка и запуск приложения
 
-To learn React, check out the [React documentation](https://reactjs.org/).
+Для устанаовки и запуска рекомендуется использовать yarn:
+
++ `yarn`
+
+Устанавиливает зависимости для приложения
+
++ `yarn start`
+
+Запускает приложение в режиме разработчика\
+Откройте [http://localhost:3000](http://localhost:3000) для просмотра в браузере.
+
++ `yarn build`
+
+Собирает рабочую версию в папке `build`.\
+Это полноценная версия, готовая к работе.

@@ -1,0 +1,66 @@
+@import "../../index.scss";
+
+.App {
+  @extend %flexrow;
+  height: 100vh;
+  width: 100vw;
+  align-items: center;
+  justify-content: center;
+}
+
+.Page {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  grid-template-areas:
+    "LIST  INFO"
+    "EXTRA  FOOTER";
+  gap: calc($size * 2);
+  height: 80vmin;
+  width: 80vmin;
+}
+
+.List {
+  @extend %flexcol;
+  align-items: stretch;
+  justify-content: flex-start;
+  padding: calc($size * 2);
+  border: 1px solid $darkest;
+  box-sizing: border-box;
+  height: 70vmin;
+  grid-area: LIST;
+}
+
+.Info {
+  @extend %flexcol;
+  align-items: flex-start;
+  justify-content: space-between;
+  padding: calc($size * 2);
+  border: 1px solid $darkest;
+  box-sizing: border-box;
+  height: 70vmin;
+  grid-area: INFO;
+}
+
+.Extra {
+  @extend %flexrow;
+  align-items: center;
+  justify-content: flex-start;
+  width: 100%;
+  height: max-content;
+  grid-area: EXTRA;
+}
+
+.Footer {
+  @extend %flexrow;
+  align-items: center;
+  justify-content: flex-end;
+  width: 100%;
+  height: max-content;
+  grid-area: FOOTER;
+
+  & > * {
+    &:last-of-type {
+      margin-right: 0px;
+    }
+  }
+}
