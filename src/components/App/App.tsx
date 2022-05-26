@@ -1,4 +1,10 @@
-import { DragEvent, SyntheticEvent, useCallback, useState } from "react";
+import {
+  DragEvent,
+  SyntheticEvent,
+  useCallback,
+  useEffect,
+  useState,
+} from "react";
 import { getData, setSelected, updateData } from "../../services/actions";
 import { useDispatch, useSelector } from "../../services/hooks";
 import { moveItemByIDS, rawToData, removeByID } from "../../services/utils";
@@ -29,6 +35,10 @@ const App = () => {
   const { rawData, data, request, error, selectedID } = useSelector(
     (store) => store.app
   );
+
+  useEffect(() => {
+    dispatch(getData());
+  }, [dispatch]);
 
   const [showConsole, setShowConsole] = useState<boolean>(false);
 

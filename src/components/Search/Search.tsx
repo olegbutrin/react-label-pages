@@ -7,6 +7,9 @@ const onSearchSubmit = (e: FormEvent) => {
   const str = data.get("search_input") as string;
   const container = document.querySelector('div[class="Container"]');
   if (str && container) {
+    document.querySelectorAll('ul[class*="hidden"]').forEach((ul) => {
+      ul.classList.remove("hidden");
+    });
     const bottom = container.getBoundingClientRect().bottom;
     const htmlBoxes = document.querySelectorAll('div[class^="ListItemBox"]');
     const boxes = Array.from(htmlBoxes).filter((box) => {

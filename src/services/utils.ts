@@ -136,6 +136,8 @@ export const rawToData: (raw: TRawData) => TItem = (raw) => {
   // сохраняются в массиве и распределяются после основного прохода.
   // количество дополнительных проходов определено эмпирически (на глаз)
   // как глубина вложенности в квадрате. 
+  // заодно счетчик отсекает возможность зацикливания при распределении 
+  // потомков удаленных элементов (потенциально).
   let count = 0;
   while (unbounded.length > 0 && count < 16) {
     let nextUnbounded: Array<TItem> = []; 
@@ -150,6 +152,10 @@ export const rawToData: (raw: TRawData) => TItem = (raw) => {
         nextUnbounded.push(child);
       }
     });
+    // если не распределился ни один, значит это удаленные
+    if (nextUnbounded.length === unbounded.length) {
+      break;
+    }
     count++;
     unbounded = nextUnbounded;
   }

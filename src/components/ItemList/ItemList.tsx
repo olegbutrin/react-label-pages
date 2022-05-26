@@ -61,8 +61,10 @@ const ListItem = ({
       </div>
       {data.items && (
         <ul
-          className={["ItemList", "level" + level].join(" ")}
-          hidden={!isVisible}
+          className={
+            ["ItemList", "level" + level].join(" ") +
+            (!isVisible ? " hidden" : "")
+          }
         >
           {data.items.map((item) => {
             return (
