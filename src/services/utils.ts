@@ -103,7 +103,7 @@ export const itemByID = (root: TItem, id: number) => {
 
 export const rawToData: (raw: TRawData) => TItem = (raw) => {
   const src = raw.entityLabelPages[0];
-  const unbounded: Array<TItem> = [];
+  let unbounded: Array<TItem> = [];
   const root: TItem = {
     id: -1,
     label: "root",
@@ -129,15 +129,30 @@ export const rawToData: (raw: TRawData) => TItem = (raw) => {
       }
     }
   });
-  unbounded.forEach((child) => {
-    const parent = itemByID(root, child.parentID);
-    if (parent) {
-      if (parent.items === undefined) {
-        parent.items = [];
+  // после произвольного изменения порядка элементов родительский элемент
+  // может сместиться в массиве ниже, чем определены его потомки.
+  // это означает, что потомки не будут добавлены при основном проходе.
+  // для восстановления связей нераспределенные потомки (и потомки потомков)
+  // сохраняются в массиве и распределяются после основного прохода.
+  // количество дополнительных проходов определено эмпирически (на глаз)
+  // как глубина вложенности в квадрате. 
+  let count = 0;
+  while (unbounded.length > 0 && count < 16) {
+    let nextUnbounded: Array<TItem> = []; 
+    unbounded.forEach((child) => {
+      const parent = itemByID(root, child.parentID);
+      if (parent) {
+        if (parent.items === undefined) {
+          parent.items = [];
+        }
+        parent.items.push(child);
+      } else {
+        nextUnbounded.push(child);
       }
-      parent.items.push(child);
-    }
-  });
+    });
+    count++;
+    unbounded = nextUnbounded;
+  }
   return root;
 };
 

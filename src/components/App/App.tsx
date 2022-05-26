@@ -5,6 +5,7 @@ import { moveItemByIDS, rawToData, removeByID } from "../../services/utils";
 import Button, { IButtonComponent } from "../Button/Button";
 import ItemInfo from "../ItemInfo/ItemInfo";
 import ItemList from "../ItemList/ItemList";
+import Search from "../Search/Search";
 import Spinner from "../Spinner/Spinner";
 import "./App.scss";
 
@@ -106,6 +107,9 @@ const App = () => {
             selectedID={selectedID}
             showConsole={showConsole}
           />
+        </div>
+        <div className="Extra">
+          <Search />
         </div>
         <div className="Footer">
           <Button key={"BTN_CONSOLE"} {...showConsoleBtnProps} />

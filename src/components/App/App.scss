@@ -13,7 +13,7 @@
   grid-template-columns: repeat(2, 1fr);
   grid-template-areas:
     "LIST  INFO"
-    "FOOTER  FOOTER";
+    "EXTRA  FOOTER";
   gap: calc($size * 2);
   height: 80vmin;
   width: 80vmin;
@@ -41,6 +41,15 @@
   grid-area: INFO;
 }
 
+.Extra {
+  @extend %flexrow;
+  align-items: center;
+  justify-content: flex-start;
+  width: 100%;
+  height: max-content;
+  grid-area: EXTRA;
+}
+
 .Footer {
   @extend %flexrow;
   align-items: center;
@@ -48,4 +57,10 @@
   width: 100%;
   height: max-content;
   grid-area: FOOTER;
+
+  & > * {
+    &:last-of-type {
+      margin-right: 0px;
+    }
+  }
 }

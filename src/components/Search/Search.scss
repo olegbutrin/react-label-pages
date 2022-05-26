@@ -1,0 +1,24 @@
+@import "../../index.scss";
+
+.Search {
+  @extend %flexrow;
+  align-items: center;
+  justify-content: flex-start;
+
+  label {
+    font-weight: 500;
+    text-transform: uppercase;
+    margin-right: $size;
+  }
+
+  input {
+    font-size: $size;
+    padding: $padding;
+    margin-right: $size;
+  }
+
+  button {
+    font-size: $size;
+    padding: $padding;
+  }
+}
